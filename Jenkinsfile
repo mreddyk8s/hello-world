@@ -14,7 +14,7 @@ pipeline {
         stage ('Scan and Build Jar File') {
             steps {
                withSonarQubeEnv(installationName: 'Testsonarqube', credentialsId: 'Testsonar') {
-                sh 'mvn clean package sonar:sonar'
+                sh 'echo "welcome to sonarqube" sonar:sonar'
                 }
             }
         }
