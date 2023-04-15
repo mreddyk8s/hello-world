@@ -1,22 +1,11 @@
-pipeline {
-    agent any
-    stages {
-        stage ('Build') {
-            steps {
-                sh 'echo Hello Build stage'
-            }
-        }
-        stage ('Test') {
-            steps {
-                sh 'echo hello Test stage'
-            }
-        }
-        stage ('Scan and Build Jar File') {
-            steps {
-               withSonarQubeEnv(installationName: 'Testsonarqube', credentialsId: 'Testsonar') {
-                sh 'echo "welcome to sonarqube" sonar:sonar'
-                }
-            }
-        }
+node {
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def mvn = tool 'Maven';
+    withSonarQubeEnv() {
+      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Testsonarqube -Dsonar.projectName='Testsonarqube'"
     }
+  }
 }
