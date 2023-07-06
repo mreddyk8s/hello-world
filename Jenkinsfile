@@ -1,12 +1,22 @@
 pipeline {
     agent any
-    options {
-        timeout(time: 30, unit: 'MINUTES') 
-    }
     stages {
-        stage('Example') {
+        stage('Example Build') {
+            when {
+                anyOf { 
+			branch 'main'; branch 'staging' 
+		}
+            }
             steps {
                 echo 'Hello World'
+            }
+        }
+        stage('Example Deploy') {
+            when {
+                branch 'production'
+            }
+            steps {
+                echo 'Deploying'
             }
         }
     }
