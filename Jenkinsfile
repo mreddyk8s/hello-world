@@ -2,11 +2,6 @@ pipeline {
     agent any
     stages {
         stage('Example Build') {
-            when {
-                anyOf { 
-			branch 'main'; branch 'staging' 
-		}
-            }
             steps {
                 echo 'Hello World'
             }
