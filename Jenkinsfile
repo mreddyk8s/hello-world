@@ -1,11 +1,13 @@
-node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def mvn = tool 'Maven';
-    withSonarQubeEnv() {
-      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Testsonarqube -Dsonar.projectName='Testsonarqube'"
+pipeline {
+    agent any
+    options {
+        timeout(time: 30, unit: 'MINUTES') 
     }
-  }
+    stages {
+        stage('Example') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
 }
